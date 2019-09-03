@@ -39,7 +39,7 @@ def hash_table_insert(hash_table, key, value):
     p = Pair(key, value)
     index = hash(key, hash_table.capacity) % hash_table.capacity 
     if hash_table.storage[index] is not p:
-        print("warning: overwriting exist data")
+        print("warning: overwriting existing data")
     hash_table.storage[index] = p
 
 
