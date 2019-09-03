@@ -26,7 +26,7 @@ class BasicHashTable:
 def hash(string, max):
     h = 5381
     for x in string:
-        h = (( hash << 5) + h) + ord(x)
+        h = (( h << 5) + h) + ord(x)
     return h & 0xFFFFFFFF
 
 
@@ -36,7 +36,11 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    p = Pair(key, value)
+    index = hash(key, hash_table.capacity) % hash_table.capacity 
+    if hash_table.storage[index] is not p:
+        print("warning: overwriting exist data")
+    hash_table.storage[index] = p
 
 
 # '''
@@ -45,7 +49,11 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity) % hash_table.capacity
+    if hash_table.storage[index] is None:
+        print("warning no value found at key index")
+        return
+    hash_table.storage[index] = None
 
 
 # '''
