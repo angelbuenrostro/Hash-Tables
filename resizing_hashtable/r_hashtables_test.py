@@ -153,14 +153,6 @@ class TestFullHashTable(unittest.TestCase):
         ht = hash_table_resize(ht)
 
         self.assertTrue(len(ht.storage) == 16)
-        
-        for x in range(0, ht.capacity):
-            if ht.storage[x] is not None:
-                print(x)
-                print (ht.storage[x].value)
-            else:
-                print(x)
-                print("There aint shit here!")
 
         return_value = hash_table_retrieve(ht, "key-0")
         self.assertTrue(return_value == "val-0")
