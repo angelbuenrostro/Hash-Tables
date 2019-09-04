@@ -111,11 +111,11 @@ def Testing():
     print(hash_table_retrieve(ht, "line_1"))
     print(hash_table_retrieve(ht, "line_2"))
     print(hash_table_retrieve(ht, "line_3"))
-    print(ht.capacity)
+
     old_capacity = len(ht.storage)
     ht = hash_table_resize(ht)
     new_capacity = len(ht.storage)
-    print(ht.capacity)
+   
     print("Resized hash table from " + str(old_capacity)
           + " to " + str(new_capacity) + ".")
 
