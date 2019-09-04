@@ -17,14 +17,19 @@ class LinkedPair:
 # '''
 class HashTable:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.storage = [None] * capacity
 
 
 # '''
 # Research and implement the djb2 hash function
 # '''
-def hash(string, max):
-    pass
+def hash(string, capacity_modulo):
+    h = 5381
+    for x in string:
+        h = (( h << 5) + h) + ord(x)
+    result = h & 0xFFFFFFFF
+    return result % max
 
 
 # '''
@@ -33,8 +38,21 @@ def hash(string, max):
 # Hint: Used the LL to handle collisions
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
-
+    index = hash(key, hash_table.capacity)
+    if hash_table.storage[index] is None:
+        hash_table.storage[index] = LinkedPair(key, value)
+    else:
+        current_node = hash_table.storage[index]
+        while current_node.next is not None:
+            if current_node.key == key:
+                current_node.value = value
+                return
+            else:
+                current_node = current_node.next
+        if current_node.key == key:
+            current_node.value = value
+            return
+        current_node.next = LinkedPair(key, value)
 
 # '''
 # Fill this in.
@@ -42,7 +60,11 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity) 
+    if hash_table.storage[index] is None:
+        print("warning no value found at key index")
+        return
+    hash_table.storage[index] = None
 
 
 # '''
@@ -51,7 +73,17 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
+    if hash_table.storage[index] is None:
+        print("No value found at specified index")
+    else:
+        current_node = hash_table.storage[index]
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node.value
+            current_node = current_node.next
+        if current_node is None:
+            print("There is no value for this key")
 
 
 # '''
