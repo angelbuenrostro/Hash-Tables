@@ -95,8 +95,9 @@ def hash_table_resize(hash_table):
     for x in range(0, hash_table.capacity):
         if hash_table.storage[x] is not None:
             hash_table_insert(new_table, hash_table.storage[x].key, hash_table.storage[x].value)
-            if hash_table.storage[x].next is not None:
+            while hash_table.storage[x].next is not None:
                 hash_table_insert(new_table, hash_table.storage[x].next.key, hash_table.storage[x].next.value)
+                hash_table.storage[x].next = hash_table.storage[x].next.next
     return new_table
 
 
