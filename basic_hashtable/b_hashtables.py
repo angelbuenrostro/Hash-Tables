@@ -23,12 +23,12 @@ class BasicHashTable:
 # Fill this in.
 # Research and implement the djb2 hash function
 # '''
-def hash(string, max):
+def hash(string, capacity_modulo):
     h = 5381
     for x in string:
         h = (( h << 5) + h) + ord(x)
-    return h & 0xFFFFFFFF
-
+    result = h & 0xFFFFFFFF
+    return result % max
 
 # '''
 # Fill this in.
@@ -37,7 +37,7 @@ def hash(string, max):
 # '''
 def hash_table_insert(hash_table, key, value):
     p = Pair(key, value)
-    index = hash(key, hash_table.capacity) % hash_table.capacity 
+    index = hash(key, hash_table.capacity)
     if hash_table.storage[index] is not p:
         print("warning: overwriting existing data")
     hash_table.storage[index] = p
@@ -49,7 +49,7 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    index = hash(key, hash_table.capacity) % hash_table.capacity
+    index = hash(key, hash_table.capacity) 
     if hash_table.storage[index] is None:
         print("warning no value found at key index")
         return
@@ -62,7 +62,7 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    index = hash(key, hash_table.capacity) % hash_table.capacity
+    index = hash(key, hash_table.capacity) 
     if hash_table.storage[index] is None:
         return None
     return hash_table.storage[index].value
