@@ -29,7 +29,7 @@ def hash(string, capacity_modulo):
     for x in string:
         h = (( h << 5) + h) + ord(x)
     result = h & 0xFFFFFFFF
-    return result % max
+    return result % capacity_modulo
 
 
 # '''
@@ -76,6 +76,7 @@ def hash_table_retrieve(hash_table, key):
     index = hash(key, hash_table.capacity)
     if hash_table.storage[index] is None:
         print("No value found at specified index")
+        return None
     else:
         current_node = hash_table.storage[index]
         while current_node is not None:
@@ -84,13 +85,17 @@ def hash_table_retrieve(hash_table, key):
             current_node = current_node.next
         if current_node is None:
             print("There is no value for this key")
-
+            return None
 
 # '''
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    pass
+    new_table = HashTable(hash_table.capacity*2)
+    for x in range(0, hash_table.capacity):
+        if hash_table.storage[x] is not None:
+            hash_table_insert(new_table, hash_table.storage[x].key, hash_table.storage[x].value)
+    return new_table
 
 
 def Testing():
