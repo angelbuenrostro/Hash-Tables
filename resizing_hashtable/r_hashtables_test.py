@@ -8,7 +8,7 @@ from r_hashtables import (HashTable,
 
 
 class TestFullHashTable(unittest.TestCase):
-
+    
     def test_hash_table_insertion_and_retrieval(self):
         ht = HashTable(8)
 

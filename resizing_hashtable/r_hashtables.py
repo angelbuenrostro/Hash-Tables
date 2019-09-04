@@ -95,7 +95,7 @@ def hash_table_resize(hash_table):
     for x in range(0, hash_table.capacity):
         if hash_table.storage[x] is not None:
             hash_table_insert(new_table, hash_table.storage[x].key, hash_table.storage[x].value)
-            while hash_table.storage[x].next is not None:
+            if hash_table.storage[x].next is not None:
                 hash_table_insert(new_table, hash_table.storage[x].next.key, hash_table.storage[x].next.value)
     return new_table
 
@@ -110,11 +110,11 @@ def Testing():
     print(hash_table_retrieve(ht, "line_1"))
     print(hash_table_retrieve(ht, "line_2"))
     print(hash_table_retrieve(ht, "line_3"))
-
+    print(ht.capacity)
     old_capacity = len(ht.storage)
     ht = hash_table_resize(ht)
     new_capacity = len(ht.storage)
-
+    print(ht.capacity)
     print("Resized hash table from " + str(old_capacity)
           + " to " + str(new_capacity) + ".")
 
